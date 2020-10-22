@@ -10,7 +10,6 @@ const ProductsPage = ({ data }) => {
     <section className="products">
       <Navbar />
       <Container>
-        <p>This is the products page.</p>
         <Product products={products} />
       </Container>
     </section>
@@ -21,9 +20,16 @@ export const query = graphql`
   query {
     allSanityProducts {
       nodes {
-        image {
+        imageVariants {
           asset {
             fixed {
+              ...GatsbySanityImageFixed
+            }
+          }
+        }
+        colors {
+          asset {
+            fixed(width: 40, height: 40) {
               ...GatsbySanityImageFixed
             }
           }

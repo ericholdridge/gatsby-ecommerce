@@ -4,9 +4,16 @@ export default {
   type: "document",
   fields: [
     {
-      name: "image",
-      title: "Image",
-      type: "image",
+      name: "imageVariants",
+      title: "Image Variants",
+      type: "array",
+      of: [{type: "image"}]
+    },
+    {
+      name: "colors",
+      title: "Color Variants",
+      type: "array",
+      of: [{type: "image"}],
     },
     {
       name: "name",
