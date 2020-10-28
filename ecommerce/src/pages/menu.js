@@ -1,81 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import GlobalStyles from "../GlobalStyles/GlobalStyles";
-import { Helmet } from "react-helmet";
-import { StaticQuery } from "gatsby";
 import Img from "gatsby-image";
 // Images
 import MenuBgImage from "../images/menu-bg.jpg";
 import PizzaBgImage from "../images/pattern-body.jpg";
 // Components
-import Navbar from "../components/Navbar/Navbar";
 import Container from "../components/ReusableComponents/Container";
-import MenuAddBtn from "../components/ReusableComponents/MenuAddBtn";
+import PizzaMenu from "../components/PizzaMenu/PizzaMenu";
 
-const menu = () => {
+const MenuPage = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (menuItem) => {
+    setCartItems([...cartItems, menuItem]);
+  };
+
   return (
-    <StaticQuery
-      query={graphql`
-        query MyQuery {
-          allSanityMenu {
-            nodes {
-              image {
-                asset {
-                  fixed(width: 200, height: 200) {
-                    ...GatsbySanityImageFixed
-                  }
-                }
-              }
-              pizzaName
-              description
-              price
-            }
-          }
-        }
-      `}
-      render={(data) => (
-        <StyledMenuPage className="menu">
-          <GlobalStyles />
-          <Helmet>
-            <link
-              href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200;300;500&family=Poppins:wght@100;300;400;500&display=swap"
-              rel="stylesheet"
-            />
-            <script
-              src="https://kit.fontawesome.com/9808de19ba.js"
-              crossorigin="anonymous"
-            ></script>
-          </Helmet>
-          <Navbar />
-          <div className="background-image">
-            <h1>Pizza Menu</h1>
-          </div>
-          <div className="menu-wrapper">
-            <Container>
-              {data.allSanityMenu.nodes.map((pizza) => (
-                <div className="individualPizza">
-                  <div className="img">
-                    <Img fixed={pizza.image.asset.fixed} />
-                  </div>
-                  <div className="pizzaInfo">
-                    <h3>{pizza.pizzaName}</h3>
-                    <p>{pizza.description}</p>
-                    <span>${pizza.price}</span>
-                  </div>
-                  <MenuAddBtn pizza={pizza}/>
-                </div>
-              ))}
-            </Container>
-          </div>
-        </StyledMenuPage>
-      )}
-    />
+    <StyledMenuPage className="menu">
+      <div className="cartItems">
+        <div className="cartHeading">
+          <h3>Cart Totals</h3>
+        </div>
+        <div className="item-wrapper">
+          {cartItems.map((item) => (
+            <div className="item">
+              <Img fixed={item.image.asset.fixed} />
+              <span>{item.pizzaName}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="background-image">
+        <h1>Pizza Menu</h1>
+      </div>
+      <div className="pizzaItems">
+        <Container>
+          <PizzaMenu setCartItems={setCartItems} addToCart={addToCart} />
+        </Container>
+      </div>
+    </StyledMenuPage>
   );
 };
 
 const StyledMenuPage = styled.section`
   width: 100%;
-  min-height: 40vh;
+  position: relative;
+  .cartItems {
+    position: absolute;
+    width: 20%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #222222;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .cartHeading {
+      text-align: center;
+      padding: 20px 0;
+      h3 {
+        color: #fdbc2c;
+        font-size: 2rem;
+      }
+    }
+    .item-wrapper {
+      border-top: 1px solid #010202;
+      box-shadow: 0 -1px 0 0 #383838;
+      .item {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 300px;
+        padding: 20px 0;
+        border-bottom: 1px solid #010202;
+        box-shadow: 0 1px 0 0 #383838;
+        .gatsby-image-wrapper {
+          height: 100px !important;
+          width: 100px !important;
+          img {
+            height: 100px !important;
+            width: 100%;
+          }
+        }
+        span {
+          display: block;
+          color: #fdbc2c;
+          font-size: 1.2rem;
+          font-weight: 600;
+          width: 100%;
+          max-width: 190px;
+        }
+      }
+    }
+  }
   .background-image {
     width: 100%;
     background: url("${MenuBgImage}") no-repeat center/cover;
@@ -88,47 +106,14 @@ const StyledMenuPage = styled.section`
       color: whitesmoke;
     }
   }
-  .menu-wrapper {
+  .pizzaItems {
     background: url("${PizzaBgImage}") no-repeat center/cover;
-    display: flex;
-    align-items: center;
-    > .container {
+    .container {
       display: flex;
       flex-wrap: wrap;
       padding: 40px 0;
-      .individualPizza {
-        width: 100%;
-        max-width: 400px;
-        padding: 20px;
-        border: 2px solid transparent;
-        transition: border .3s ease-in-out;
-        cursor: pointer;
-        .img {
-          display: flex;
-          justify-content: center;
-        }
-        .pizzaInfo {
-          text-align: center;
-          padding: 0 6px;
-          h3 {
-            color: #fdbc2c;
-          }
-          p {
-            padding: 8px 0;
-            color: whitesmoke;
-            font-size: 0.9rem;
-          }
-          span {
-            display: block;
-            color: #d94f2b;
-          }
-        }
-        &:hover {
-          border: 2px solid #fdbc2c;
-        }
-      }
     }
   }
 `;
 
-export default menu;
+export default MenuPage;

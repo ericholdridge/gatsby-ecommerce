@@ -1,6 +1,5 @@
 import { graphql, StaticQuery } from "gatsby";
 import React from "react";
-import Navbar from "../Navbar/Navbar";
 import styled from "styled-components";
 import HeroBg from "../../images/main-slider_bg-1.jpg";
 import Container from "../ReusableComponents/Container";
@@ -25,7 +24,6 @@ const HeroSection = () => {
       `}
       render={(data) => (
         <StyledHero>
-          <Navbar />
           <Container>
             <div className="items-center">
               <h1>Get it while it's hot!</h1>
