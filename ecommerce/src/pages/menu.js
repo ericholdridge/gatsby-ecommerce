@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import Img from "gatsby-image";
+import { AppState } from "../components/Context";
 // Images
 import MenuBgImage from "../images/menu-bg.jpg";
 import PizzaBgImage from "../images/pattern-body.jpg";
@@ -9,15 +10,13 @@ import Container from "../components/ReusableComponents/Container";
 import PizzaMenu from "../components/PizzaMenu/PizzaMenu";
 
 const MenuPage = () => {
-  const [cartItems, setCartItems] = useState([]);
-
-  const addToCart = (menuItem) => {
-    setCartItems([...cartItems, menuItem]);
-  };
-
+  const { cartItems, setCartItems, addToCart, showCart } = useContext(AppState);
   return (
     <StyledMenuPage className="menu">
-      <div className="cartItems">
+      {showCart ? 
+      <div className="overlay"></div>
+      : null}
+      <div className={showCart ? "cart showCart" : "cart hideCart"}>
         <div className="cartHeading">
           <h3>Cart Totals</h3>
         </div>
@@ -45,51 +44,123 @@ const MenuPage = () => {
 const StyledMenuPage = styled.section`
   width: 100%;
   position: relative;
-  .cartItems {
+  overflow: hidden;
+  transition: opacity .4s ease-in-out;
+  .overlay {
     position: absolute;
-    width: 20%;
     top: 0;
     right: 0;
     bottom: 0;
-    background: #222222;
+    left: 0;
+    background: #000;
+    opacity: 0.7;
     z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .cartHeading {
-      text-align: center;
-      padding: 20px 0;
-      h3 {
-        color: #fdbc2c;
-        font-size: 2rem;
-      }
-    }
-    .item-wrapper {
-      border-top: 1px solid #010202;
-      box-shadow: 0 -1px 0 0 #383838;
-      .item {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        max-width: 300px;
+  }
+  .cart {
+    transition: all 400ms ease-in-out;
+    &.hideCart {
+      width: 100%;
+      max-width: 400px;
+      position: absolute;
+      top: 0;
+      right: -600px;
+      bottom: 0;
+      opacity: 0;
+      background: #222222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 20;
+      .cartHeading {
+        text-align: center;
         padding: 20px 0;
-        border-bottom: 1px solid #010202;
-        box-shadow: 0 1px 0 0 #383838;
-        .gatsby-image-wrapper {
-          height: 100px !important;
-          width: 100px !important;
-          img {
-            height: 100px !important;
+        h3 {
+          color: #fdbc2c;
+          font-size: 2rem;
+        }
+      }
+      .item-wrapper {
+        width: 100%;
+        max-width: 320px;
+        border-top: 1px solid #010202;
+        box-shadow: 0 -1px 0 0 #383838;
+        .item {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          max-width: 600px;
+          padding: 20px 0;
+          border-bottom: 1px solid #010202;
+          box-shadow: 0 1px 0 0 #383838;
+          .gatsby-image-wrapper {
+            height: 120px !important;
+            width: 120px !important;
+            img {
+              height: 120px !important;
+              width: 100%;
+            }
+          }
+          span {
+            display: block;
+            color: #fdbc2c;
+            font-size: 1.2rem;
+            font-weight: 600;
             width: 100%;
+            max-width: 190px;
           }
         }
-        span {
-          display: block;
+      }
+    }
+    &.showCart {
+      position: absolute;
+      width: 100%;
+      max-width: 400px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 1;
+      background: #222222;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .cartHeading {
+        text-align: center;
+        padding: 20px 0;
+        h3 {
           color: #fdbc2c;
-          font-size: 1.2rem;
-          font-weight: 600;
+          font-size: 2rem;
+        }
+      }
+      .item-wrapper {
+        width: 100%;
+        max-width: 320px;
+        border-top: 1px solid #010202;
+        box-shadow: 0 -1px 0 0 #383838;
+        .item {
+          display: flex;
+          justify-content: space-between;
           width: 100%;
-          max-width: 190px;
+          max-width: 600px;
+          padding: 20px 0;
+          border-bottom: 1px solid #010202;
+          box-shadow: 0 1px 0 0 #383838;
+          .gatsby-image-wrapper {
+            height: 120px !important;
+            width: 120px !important;
+            img {
+              height: 120px !important;
+              width: 100%;
+            }
+          }
+          span {
+            display: block;
+            color: #fdbc2c;
+            font-size: 1.2rem;
+            font-weight: 600;
+            width: 100%;
+            max-width: 190px;
+          }
         }
       }
     }
