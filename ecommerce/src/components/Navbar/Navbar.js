@@ -25,7 +25,7 @@ const Navbar = () => {
 const StyledNav = styled.nav`
   width: 100%;
   padding: 20px 0;
-  background: #383838;
+  background: #151515;
   .container {
     display: flex;
     justify-content: space-between;

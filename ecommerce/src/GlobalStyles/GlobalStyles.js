@@ -1,5 +1,7 @@
 // globalStyles.js
 import { createGlobalStyle } from "styled-components"
+import CheckoutPatternImg from "../images/pattern-body.jpg";
+
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -10,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Crimson Pro', serif;
     font-family: 'Poppins', sans-serif;
+    background: url("${CheckoutPatternImg}");
   }
 `
 

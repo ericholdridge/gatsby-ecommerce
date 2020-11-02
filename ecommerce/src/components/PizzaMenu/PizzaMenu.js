@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import styled from "styled-components";
+import { AppState } from "../Context";
 
-const PizzaMenu = ({setCartItems, addToCart}) => {
+const PizzaMenu = ({ addToCart }) => {
+  const {selectPizza, setSelectPizza} = useContext(AppState)
   return (
     <StaticQuery
       query={graphql`
@@ -37,12 +39,14 @@ const PizzaMenu = ({setCartItems, addToCart}) => {
                 <span>${pizza.price}</span>
               </div>
               <form>
-                <select name="sizes" id="sizes">
-                  <option value="">Small</option>
-                  <option value="">Medium</option>
-                  <option value="">Large</option>
+                <select value={selectPizza} onChange={(e) => setSelectPizza(e.target.value)}>
+                  <option value="Small">Small</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Large">Large</option>
                 </select>
-                <button type="button" onClick={() => addToCart(pizza)}>Add</button>
+                <button type="button" onClick={() => addToCart(pizza, selectPizza)}>
+                  Add
+                </button>
               </form>
             </div>
           ))}
@@ -93,6 +97,7 @@ const StyledPizzaMenu = styled.div`
       button {
         padding: 6px 30px;
         margin: 0 0 0 4px;
+        cursor: pointer;
       }
     }
   }

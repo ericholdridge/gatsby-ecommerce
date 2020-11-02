@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import GlobalStyles from "../GlobalStyles/GlobalStyles";
 import { Helmet } from "react-helmet";
 // Components
@@ -9,14 +9,32 @@ export const AppState = createContext();
 export const AppProvider = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [selectPizza, setSelectPizza] = useState("Small");
 
-  // Adds an item to the cart
-  const addToCart = (menuItem) => {
-    setCartItems([...cartItems, menuItem]);
+  const addToCart = (pizzaItem, pizzaSize) => {
+    setCartItems([
+      ...cartItems,
+      {
+        description: pizzaItem.description,
+        image: pizzaItem.image.asset.fixed,
+        pizzaName: pizzaItem.pizzaName,
+        price: pizzaItem.price,
+        size: pizzaSize,
+      },
+    ]);
   };
+
   return (
     <AppState.Provider
-      value={{ cartItems, setCartItems, addToCart, showCart, setShowCart }}
+      value={{
+        cartItems,
+        setCartItems,
+        addToCart,
+        showCart,
+        setShowCart,
+        selectPizza,
+        setSelectPizza,
+      }}
     >
       <GlobalStyles />
       <Helmet>
