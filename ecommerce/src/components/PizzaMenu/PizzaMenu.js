@@ -3,9 +3,11 @@ import { StaticQuery } from "gatsby";
 import Img from "gatsby-image";
 import styled from "styled-components";
 import { AppState } from "../Context";
+import formatMoney from "../../utils/formatMoney";
+import calculatePizzaPrice from "../../utils/calculatePizzaPrice";
 
 const PizzaMenu = ({ addToCart }) => {
-  const {selectPizza, setSelectPizza} = useContext(AppState)
+  const { selectPizzaSize, setSelectPizzaSize } = useContext(AppState);
   return (
     <StaticQuery
       query={graphql`
@@ -36,15 +38,23 @@ const PizzaMenu = ({ addToCart }) => {
               <div className="pizzaInfo">
                 <h3>{pizza.pizzaName}</h3>
                 <p>{pizza.description}</p>
-                <span>${pizza.price}</span>
               </div>
               <form>
-                <select value={selectPizza} onChange={(e) => setSelectPizza(e.target.value)}>
-                  <option value="Small">Small</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Large">Large</option>
+                <select
+                  value={selectPizzaSize}
+                  onChange={(e) => setSelectPizzaSize(e.target.value)}
+                >
+                  {["Small", "Medium", "Large"].map((size) => (
+                    <option value={size}>
+                      {size}{" "}
+                      {formatMoney(calculatePizzaPrice(pizza.price, size))}
+                    </option>
+                  ))}
                 </select>
-                <button type="button" onClick={() => addToCart(pizza, selectPizza)}>
+                <button
+                  type="button"
+                  onClick={() => addToCart(pizza, selectPizzaSize)}
+                >
                   Add
                 </button>
               </form>
@@ -68,12 +78,13 @@ const StyledPizzaMenu = styled.div`
     transition: border 0.3s ease-in-out;
     cursor: pointer;
     .img {
+      filter: drop-shadow(2px 4px 8px black);
       display: flex;
       justify-content: center;
     }
     .pizzaInfo {
       text-align: center;
-      padding: 0 6px;
+      padding: 8px 6px 0 6px;
       h3 {
         color: #fdbc2c;
       }
@@ -94,10 +105,28 @@ const StyledPizzaMenu = styled.div`
       display: flex;
       justify-content: center;
       padding: 10px 0 0 0;
+      select {
+        padding: 0 6px;
+        background: transparent;
+        border: 2px solid #fdbc2c;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        color: whitesmoke;
+        &:focus {
+          outline: none;
+        }
+      }
       button {
-        padding: 6px 30px;
-        margin: 0 0 0 4px;
+        padding: 6px 10px;
         cursor: pointer;
+        font-weight: 600;
+        background: #fdbc2c;
+        border: 2px solid #fdbc2c;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        &:focus {
+          outline: none;
+        }
       }
     }
   }

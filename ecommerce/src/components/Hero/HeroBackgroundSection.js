@@ -6,38 +6,19 @@ import Container from "../ReusableComponents/Container";
 
 const HeroSection = () => {
   return (
-    <StaticQuery
-      query={graphql`
-        query {
-          allSanityHero {
-            nodes {
-              heroBgImage {
-                asset {
-                  fluid {
-                    ...GatsbySanityImageFluid
-                  }
-                }
-              }
-            }
-          }
-        }
-      `}
-      render={(data) => (
-        <StyledHero>
-          <div className="overlay"></div>
-          <Container>
-            <div className="items-center">
-              <h1>Get it while it's hot!</h1>
-              <p>
-                We create custom, personal pizzas with quality ingredients in
-                only five minutes.
-              </p>
-              <Link to="/menu">Menu</Link>
-            </div>
-          </Container>
-        </StyledHero>
-      )}
-    />
+    <StyledHero>
+      <div className="overlay"></div>
+      <Container>
+        <div className="items-center">
+          <h1>Get it while it's hot!</h1>
+          <p>
+            We create custom, personal pizzas with quality ingredients in only
+            five minutes.
+          </p>
+          <Link to="/menu">Menu</Link>
+        </div>
+      </Container>
+    </StyledHero>
   );
 };
 

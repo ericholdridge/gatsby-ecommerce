@@ -9,7 +9,7 @@ export const AppState = createContext();
 export const AppProvider = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [selectPizza, setSelectPizza] = useState("Small");
+  const [selectPizzaSize, setSelectPizzaSize] = useState("");
 
   const addToCart = (pizzaItem, pizzaSize) => {
     setCartItems([
@@ -24,6 +24,7 @@ export const AppProvider = ({ children }) => {
     ]);
   };
 
+
   return (
     <AppState.Provider
       value={{
@@ -32,8 +33,8 @@ export const AppProvider = ({ children }) => {
         addToCart,
         showCart,
         setShowCart,
-        selectPizza,
-        setSelectPizza,
+        selectPizzaSize,
+        setSelectPizzaSize,
       }}
     >
       <GlobalStyles />
@@ -52,3 +53,5 @@ export const AppProvider = ({ children }) => {
     </AppState.Provider>
   );
 };
+
+

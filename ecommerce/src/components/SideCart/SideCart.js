@@ -3,6 +3,7 @@ import { AppState } from "../Context";
 import Img from "gatsby-image";
 import styled from "styled-components";
 import Button from "./Button";
+import formatMoney from "../../utils/formatMoney";
 
 const SideCart = () => {
   const { cartItems, showCart } = useContext(AppState);
@@ -19,13 +20,13 @@ const SideCart = () => {
               <div className="wrap">
                 <span>{item.pizzaName}</span>
                 <span className="pizzaSize">Size: {item.size}</span>
-                <span>{item.price}</span>
+                <span>{formatMoney(item.price)}</span>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        console.log("Not greater than 0")
+        null
       )}
       <Button className="viewCart" btnText="VIEW SHOPPING CART" />
       <Button toPage="/checkout" className="checkout" btnText="CHECKOUT" />
@@ -119,7 +120,6 @@ const StyledCart = styled.div`
       box-shadow: 0 -1px 0 0 #383838;
       .item {
         display: flex;
-        /* justify-content: space-between; */
         width: 100%;
         max-width: 600px;
         padding: 20px 0;
@@ -129,7 +129,7 @@ const StyledCart = styled.div`
           height: 130px !important;
           width: 130px !important;
           img {
-            height: 120px !important;
+            height: 130px !important;
             width: 100%;
           }
         }
