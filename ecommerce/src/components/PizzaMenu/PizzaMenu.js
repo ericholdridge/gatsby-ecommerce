@@ -7,7 +7,10 @@ import formatMoney from "../../utils/formatMoney";
 import calculatePizzaPrice from "../../utils/calculatePizzaPrice";
 
 const PizzaMenu = ({ addToCart }) => {
-  const { selectPizzaSize, setSelectPizzaSize } = useContext(AppState);
+  const { selectPizzaSize, setSelectPizzaSize, setPrice } = useContext(
+    AppState
+  );
+
   return (
     <StaticQuery
       query={graphql`
@@ -23,7 +26,11 @@ const PizzaMenu = ({ addToCart }) => {
               }
               pizzaName
               description
-              price
+              price {
+                Large
+                Medium
+                Small
+              }
             }
           }
         }
@@ -40,16 +47,14 @@ const PizzaMenu = ({ addToCart }) => {
                 <p>{pizza.description}</p>
               </div>
               <form>
-                <select
-                  value={selectPizzaSize}
-                  onChange={(e) => setSelectPizzaSize(e.target.value)}
-                >
-                  {["Small", "Medium", "Large"].map((size) => (
-                    <option value={size}>
-                      {size}{" "}
-                      {formatMoney(calculatePizzaPrice(pizza.price, size))}
-                    </option>
-                  ))}
+                <select>
+                  {Object.entries(pizza.price).map(([key, value]) => {
+                    return (
+                      <option value="">
+                        {key} {formatMoney(value)}
+                      </option>
+                    );
+                  })}
                 </select>
                 <button
                   type="button"
@@ -68,12 +73,15 @@ const PizzaMenu = ({ addToCart }) => {
 
 const StyledPizzaMenu = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   min-height: calc(65vh - 69px);
+  margin: 20px 0 0 0;
   .individualPizza {
     width: 100%;
-    max-width: 400px;
-    padding: 20px;
+    max-width: 370px;
+    padding: 20px 0;
     border: 2px solid transparent;
     transition: border 0.3s ease-in-out;
     cursor: pointer;

@@ -21,12 +21,17 @@ export default {
       title: "Pizza description",
       type: "string",
     },
+    // {
+    //   name: "price",
+    //   title: "Price",
+    //   type: 'array',
+    //   description: 'Price of the pizza in cents',
+    //   validation: Rule => Rule.min(1000)
+    // },
     {
       name: "price",
       title: "Price",
-      type: 'number',
-      description: 'Price of the pizza in cents',
-      validation: Rule => Rule.min(1000)
+      type: 'price',
     },
   ],
 };

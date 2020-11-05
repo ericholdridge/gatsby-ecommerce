@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CheckoutForm from "../components/Checkout/CheckoutForm";
+import YourOrder from "../components/Checkout/YourOrder";
 import Container from "../components/ReusableComponents/Container";
 // Images
 import CheckoutBgImage from "../images/menu-bg.jpg";
@@ -15,6 +16,7 @@ const checkout = () => {
       <div className="background">
         <Container>
           <CheckoutForm />
+          <YourOrder />
         </Container>
       </div>
     </StyledCheckoutPage>
@@ -37,6 +39,9 @@ const StyledCheckoutPage = styled.section`
     }
   }
   .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .background {
     width: 100%;

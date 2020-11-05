@@ -58,7 +58,6 @@ const StyledMenuPage = styled.section`
     .container {
       display: flex;
       flex-wrap: wrap;
-      padding: 40px 0;
     }
   }
 `;
