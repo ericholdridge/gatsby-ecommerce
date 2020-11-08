@@ -4,12 +4,9 @@ import Img from "gatsby-image";
 import styled from "styled-components";
 import { AppState } from "../Context";
 import formatMoney from "../../utils/formatMoney";
-import calculatePizzaPrice from "../../utils/calculatePizzaPrice";
 
 const PizzaMenu = ({ addToCart }) => {
-  const { selectPizzaSize, setSelectPizzaSize, setPrice } = useContext(
-    AppState
-  );
+  const { handlePizzaState, price, cardIndex } = useContext(AppState);
 
   return (
     <StaticQuery
@@ -45,20 +42,22 @@ const PizzaMenu = ({ addToCart }) => {
               <div className="pizzaInfo">
                 <h3>{pizza.pizzaName}</h3>
                 <p>{pizza.description}</p>
+                {cardIndex === index && <span>{formatMoney(price)}</span>}
               </div>
               <form>
-                <select>
-                  {Object.entries(pizza.price).map(([key, value]) => {
-                    return (
-                      <option value="">
-                        {key} {formatMoney(value)}
-                      </option>
-                    );
-                  })}
+                <select
+                  required
+                  className={index}
+                  onChange={(e) => handlePizzaState(e, pizza.price, index)}
+                >
+                  <option value="Choose a size">Choose a size</option>
+                  <option value="Small">Small</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Large">Large</option>
                 </select>
                 <button
                   type="button"
-                  onClick={() => addToCart(pizza, selectPizzaSize)}
+                  onClick={() => addToCart(pizza, price, index)}
                 >
                   Add
                 </button>

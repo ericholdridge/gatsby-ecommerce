@@ -1,17 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import Img from "gatsby-image";
 import { AppState } from "../components/Context";
 // Images
 import MenuBgImage from "../images/menu-bg.jpg";
-import PizzaBgImage from "../images/pattern-body.jpg";
 // Components
 import Container from "../components/ReusableComponents/Container";
 import PizzaMenu from "../components/PizzaMenu/PizzaMenu";
 import SideCart from "../components/SideCart/SideCart";
 
 const MenuPage = () => {
-  const { cartItems, setCartItems, addToCart, showCart } = useContext(AppState);
+  const { setCartItems, addToCart, showCart } = useContext(AppState);
   return (
     <StyledMenuPage className="menu">
       {showCart ? <div className="overlay"></div> : null}

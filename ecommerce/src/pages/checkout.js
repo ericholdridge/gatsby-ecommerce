@@ -5,7 +5,6 @@ import YourOrder from "../components/Checkout/YourOrder";
 import Container from "../components/ReusableComponents/Container";
 // Images
 import CheckoutBgImage from "../images/menu-bg.jpg";
-import CheckoutPatternImg from "../images/pattern-body.jpg";
 
 const checkout = () => {
   return (

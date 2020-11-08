@@ -1,4 +1,4 @@
-import { graphql, Link, StaticQuery } from "gatsby";
+import { Link } from "gatsby";
 import React from "react";
 import styled from "styled-components";
 import HeroBg from "../../images/main-slider_bg-1.jpg";
