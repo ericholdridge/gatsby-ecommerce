@@ -62,6 +62,7 @@ const PizzaMenu = ({ addToCart }) => {
                   Add
                 </button>
               </form>
+              
             </div>
           ))}
         </StyledPizzaMenu>

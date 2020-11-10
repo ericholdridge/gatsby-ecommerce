@@ -1,10 +1,10 @@
 import React, { useState, createContext } from "react";
 import GlobalStyles from "../GlobalStyles/GlobalStyles";
 import { Helmet } from "react-helmet";
-import formatMoney from "../utils/formatMoney";
+import axios from "axios";
+
 // Components
 import Navbar from "../components/Navbar/Navbar";
-
 export const AppState = createContext();
 
 export const AppProvider = ({ children }) => {
@@ -66,8 +66,18 @@ export const AppProvider = ({ children }) => {
         setSelectPizzaSize("Large");
         setPrice(price.Large);
         break;
+      default:
     }
   };
+
+  // Checkout
+  const handleFormSubmit = async ev => {
+    console.log("Clicked");
+    const {data: clientSecret} = await axios.post('/pages/api/payment_intents', {
+      amount: price * 100
+    })
+    console.log(clientSecret);
+  }
 
   return (
     <AppState.Provider
@@ -84,6 +94,7 @@ export const AppProvider = ({ children }) => {
         price,
         handlePizzaState,
         cardIndex,
+        handleFormSubmit
       }}
     >
       <GlobalStyles />

@@ -2,10 +2,9 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import formatMoney from "../../utils/formatMoney";
 import { AppState } from "../Context";
-import Button from "../SideCart/Button";
 
 const YourOrder = () => {
-  const { cartItems, totalPrice } = useContext(AppState);
+  const { cartItems, totalPrice, handleFormSubmit } = useContext(AppState);
   return (
     <StyledYourOrder>
       <h2>Your Order</h2>
@@ -26,7 +25,7 @@ const YourOrder = () => {
         <span>{formatMoney(totalPrice)}</span>
       </div>
       <div className="placeOrder">
-        <Button btnText="PLACE ORDER" className="placeOrderBtn" />
+        <button type="button" onClick={handleFormSubmit}>place order</button>
       </div>
     </StyledYourOrder>
   );
@@ -78,6 +77,7 @@ const StyledYourOrder = styled.div`
   .placeOrder {
     width: 100%;
     margin: 14px 0 0 0;
+    cursor: pointer;
     .placeOrderBtn {
       background: #fdbc2c;
       display: block;

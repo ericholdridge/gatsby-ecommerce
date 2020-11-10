@@ -3,8 +3,11 @@ import styled from "styled-components";
 import CheckoutForm from "../components/Checkout/CheckoutForm";
 import YourOrder from "../components/Checkout/YourOrder";
 import Container from "../components/ReusableComponents/Container";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 // Images
 import CheckoutBgImage from "../images/menu-bg.jpg";
+const stripePromise = loadStripe(process.env.GATSBY_PUBLISHABLE_KEY);
 
 const checkout = () => {
   return (
@@ -14,7 +17,9 @@ const checkout = () => {
       </div>
       <div className="background">
         <Container>
-          <CheckoutForm />
+          <Elements stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>
           <YourOrder />
         </Container>
       </div>
