@@ -4,7 +4,7 @@ import formatMoney from "../../utils/formatMoney";
 import { AppState } from "../Context";
 
 const YourOrder = () => {
-  const { cartItems, totalPrice, handleFormSubmit } = useContext(AppState);
+  const { cartItems, totalPrice, handleSubmit } = useContext(AppState);
   return (
     <StyledYourOrder>
       <h2>Your Order</h2>
@@ -25,7 +25,7 @@ const YourOrder = () => {
         <span>{formatMoney(totalPrice)}</span>
       </div>
       <div className="placeOrder">
-        <button type="button" onClick={handleFormSubmit}>place order</button>
+        <button type="button" onClick={(e) => handleSubmit(e)}>place order</button>
       </div>
     </StyledYourOrder>
   );

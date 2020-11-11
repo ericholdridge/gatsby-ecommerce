@@ -1,13 +1,13 @@
 import React, { useState, createContext } from "react";
 import GlobalStyles from "../GlobalStyles/GlobalStyles";
 import { Helmet } from "react-helmet";
-import axios from "axios";
 
 // Components
 import Navbar from "../components/Navbar/Navbar";
 export const AppState = createContext();
 
 export const AppProvider = ({ children }) => {
+  const [email, setEmail] = useState("");
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [selectPizzaSize, setSelectPizzaSize] = useState();
@@ -70,13 +70,9 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  // Checkout
-  const handleFormSubmit = async ev => {
-    console.log("Clicked");
-    const {data: clientSecret} = await axios.post('/pages/api/payment_intents', {
-      amount: price * 100
-    })
-    console.log(clientSecret);
+  const handleEmailValue = (e) => {
+    const value = e.target.value;
+    setEmail(value)
   }
 
   return (
@@ -94,7 +90,9 @@ export const AppProvider = ({ children }) => {
         price,
         handlePizzaState,
         cardIndex,
-        handleFormSubmit
+        email,
+        setEmail,
+        handleEmailValue
       }}
     >
       <GlobalStyles />

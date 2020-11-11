@@ -6,6 +6,7 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-nodejs`,
     {
       resolve: `gatsby-source-sanity`,
       options: {
