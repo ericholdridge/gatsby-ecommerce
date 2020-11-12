@@ -1,13 +1,21 @@
 import React, { useState, createContext } from "react";
 import GlobalStyles from "../GlobalStyles/GlobalStyles";
 import { Helmet } from "react-helmet";
+import { v4 as uuidv4 } from "uuid";
 
 // Components
 import Navbar from "../components/Navbar/Navbar";
 export const AppState = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [email, setEmail] = useState("");
+  const [inputValues, setInputValues] = useState({
+    name: "",
+    email: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [selectPizzaSize, setSelectPizzaSize] = useState();
@@ -27,6 +35,7 @@ export const AppProvider = ({ children }) => {
           pizzaName: pizza.pizzaName,
           price: price,
           size: selectPizzaSize,
+          itemId: uuidv4(),
         },
       ]);
       // Once an item is added to the cart, set these state variables to undefined so the user can't add an item with no price or size.
@@ -38,7 +47,6 @@ export const AppProvider = ({ children }) => {
 
   // Add a pizza to the cart
   const handlePizzaState = (e, price, index) => {
-    console.log(e);
     const pizzaValue = e.target.value;
 
     // If the pizza size includes an index, set the cardIndex to the index
@@ -70,10 +78,19 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const handleEmailValue = (e) => {
+  // Remove a pizza item from the SideCart component
+  const handleRemoveItem = (id) => {
+    setCartItems(cartItems.filter((item) => item.itemId !== id));
+  };
+
+  // Gets the input values of the checkout form and updates the state.
+  const handleInputValues = (e) => {
     const value = e.target.value;
-    setEmail(value)
-  }
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: value,
+    });
+  };
 
   return (
     <AppState.Provider
@@ -90,9 +107,11 @@ export const AppProvider = ({ children }) => {
         price,
         handlePizzaState,
         cardIndex,
-        email,
-        setEmail,
-        handleEmailValue
+        inputValues,
+        setInputValues,
+        inputValues,
+        handleInputValues,
+        handleRemoveItem,
       }}
     >
       <GlobalStyles />

@@ -4,10 +4,12 @@ import FormInput from "./FormInput/FormInput";
 import axios from "axios";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { AppState } from "../Context";
-import formatMoney from "../../utils/formatMoney";
+import YourOrder from "./YourOrder";
 
 const CheckoutForm = () => {
-  const { email, setEmail, totalPrice } = useContext(AppState);
+  const { inputValues, totalPrice, email, handleInputValues } = useContext(
+    AppState
+  );
 
   const stripe = useStripe();
   const elements = useElements();
@@ -15,8 +17,6 @@ const CheckoutForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -25,31 +25,31 @@ const CheckoutForm = () => {
       totalPrice: totalPrice,
     });
 
-    console.log(res);
-
     const clientSecret = res.data["client_secret"];
 
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-          email: email,
+          address: {
+            city: inputValues.city,
+            line1: inputValues.address,
+            postal_code: inputValues.zip,
+            state: inputValues.state,
+          },
+          email: inputValues.email,
+          name: inputValues.name,
         },
       },
     });
 
     if (result.error) {
-      // Show error to your customer (e.g., insufficient funds)
+      // TODO: Show error message if payment didn't go through
       console.log(result.error.message);
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === "succeeded") {
-        console.log("Money is in the bank!");
-        // Show a success message to your customer
-        // There's a risk of the customer closing the window before callback
-        // execution. Set up a webhook or plugin to listen for the
-        // payment_intent.succeeded event that handles any business critical
-        // post-payment actions.
+        // TODO: Show success message to the user that the payment succeeded
       }
     }
   };
@@ -80,42 +80,84 @@ const CheckoutForm = () => {
 
   return (
     <StyledCheckoutForm onSubmit={handleSubmit}>
-      <h3>Billing Details</h3>
-      {/* <FormInput label="Name" name="name" type="text" placeholder="Jon Doe" />
-      <FormInput
-        label="Email"
-        name="email"
-        type="text"
-        placeholder="jon.doe@example.com"
-        onChange={(e) => handleEmailValue(e.target.value)}
-      /> */}
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      {/* <FormInput
-        label="Address"
-        name="address"
-        type="text"
-        placeholder="185 Berry St"
-      />
-      <FormInput label="City" name="city" type="text" placeholder="Dubuque" />
-      <FormInput label="State" name="state" type="text" placeholder="Iowa" />
-      <FormInput label="ZIP" name="zip" type="text" placeholder="52003" /> */}
-      <CardElement options={cardElementOpts} />
-      <button>Checkout</button>
+      <div className="formInputs">
+        <h3>Billing Details</h3>
+        <FormInput
+          label="Name"
+          name="name"
+          type="text"
+          placeholder="Jon Doe"
+          value={inputValues.name}
+          onChange={handleInputValues}
+        />
+        <FormInput
+          label="Email"
+          name="email"
+          type="text"
+          placeholder="jon.doe@example.com"
+          value={inputValues.email}
+          onChange={handleInputValues}
+        />
+        <FormInput
+          label="Address"
+          name="address"
+          type="text"
+          value={inputValues.address}
+          onChange={handleInputValues}
+          placeholder="185 Berry St"
+        />
+        <FormInput
+          label="City"
+          name="city"
+          type="text"
+          placeholder="Dubuque"
+          value={inputValues.city}
+          onChange={handleInputValues}
+        />
+        <FormInput
+          label="State"
+          name="state"
+          type="text"
+          placeholder="Iowa"
+          value={inputValues.state}
+          onChange={handleInputValues}
+        />
+        <FormInput
+          label="ZIP"
+          name="zip"
+          type="text"
+          placeholder="52003"
+          value={inputValues.zip}
+          onChange={handleInputValues}
+        />
+        <CardElement options={cardElementOpts} />
+      </div>
+      <div className="order">
+        <YourOrder />
+        <button>Checkout</button>
+      </div>
     </StyledCheckoutForm>
   );
 };
 
 const StyledCheckoutForm = styled.form`
   width: 100%;
-  max-width: 700px;
+  display: flex;
+  justify-content: space-between;
   padding: 40px 0 80px 0;
-  h3 {
-    color: #fdbc2c;
-    font-size: 2.4rem;
+  .formInputs {
+    width: 100%;
+    max-width: 700px;
+    h3 {
+      color: #fdbc2c;
+      font-size: 2.4rem;
+    }
+  }
+  .order {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 40px;
   }
 `;
 

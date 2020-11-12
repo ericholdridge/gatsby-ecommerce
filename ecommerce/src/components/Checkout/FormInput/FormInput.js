@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const FormInput = ({ name, label, type, placeholder, value }) => {
+const FormInput = ({ name, label, type, placeholder, value, onChange }) => {
   return (
     <StyledDiv>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
@@ -10,6 +10,7 @@ const FormInput = ({ name, label, type, placeholder, value }) => {
         type={type}
         placeholder={placeholder}
         value={value}
+        onChange={onChange}
         required
       />
     </StyledDiv>

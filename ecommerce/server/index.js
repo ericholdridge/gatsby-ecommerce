@@ -14,13 +14,18 @@ app.use(cors());
 
 gatsby.prepare({ app }, () => {
   app.post("/checkout", async (req, res) => {
-    const { email, totalPrice } = req.body;
+    const { email, name, city, state, zip, address, totalPrice } = req.body;
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalPrice,
       currency: "usd",
       // Verify your integration in this guide by including this parameter
       metadata: { integration_check: "accept_a_payment" },
-      receipt_email: email,
+      name: name,
+      email: email,
+      city: city,
+      line1: address,
+      postal_code: zip,
+      state: state,
     });
 
     res.json({ client_secret: paymentIntent["client_secret"] });

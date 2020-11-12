@@ -20,7 +20,6 @@ const checkout = () => {
           <Elements stripe={stripePromise}>
             <CheckoutForm />
           </Elements>
-          <YourOrder />
         </Container>
       </div>
     </StyledCheckoutPage>
@@ -41,11 +40,6 @@ const StyledCheckoutPage = styled.section`
       font-size: 4rem;
       color: whitesmoke;
     }
-  }
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
   .background {
     width: 100%;

@@ -6,7 +6,7 @@ import Button from "./Button";
 import formatMoney from "../../utils/formatMoney";
 
 const SideCart = () => {
-  const { cartItems, showCart } = useContext(AppState);
+  const { cartItems, showCart, handleRemoveItem } = useContext(AppState);
   return (
     <StyledCart className={showCart ? "cart showCart" : "cart hideCart"}>
       <div className="cartHeading">
@@ -14,20 +14,21 @@ const SideCart = () => {
       </div>
       {cartItems.length >= 0 ? (
         <div className="item-wrapper">
-          {cartItems.map((item) => (
-            <div className="item">
+          {cartItems.map((item, index) => (
+            <div key={index} className="item">
               <Img fixed={item.image} />
               <div className="wrap">
                 <span>{item.pizzaName}</span>
                 <span className="pizzaSize">Size: {item.size}</span>
                 <span>{formatMoney(item.price)}</span>
+                <button type="button" onClick={() => handleRemoveItem(item.itemId)}>
+                  Remove item
+                </button>
               </div>
             </div>
           ))}
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
       <Button className="viewCart" btnText="VIEW SHOPPING CART" />
       <Button toPage="/checkout" className="checkout" btnText="CHECKOUT" />
     </StyledCart>
@@ -145,6 +146,15 @@ const StyledCart = styled.div`
           .pizzaSize {
             font-size: 0.9rem;
             color: whitesmoke;
+          }
+          button {
+            background: none;
+            border: none;
+            color: #d94f2b;
+            cursor: pointer;
+            &:active {
+              outline: none;
+            }
           }
         }
       }

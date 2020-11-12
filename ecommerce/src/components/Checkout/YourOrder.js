@@ -24,18 +24,11 @@ const YourOrder = () => {
         <span>Order Total</span>
         <span>{formatMoney(totalPrice)}</span>
       </div>
-      <div className="placeOrder">
-        <button type="button" onClick={(e) => handleSubmit(e)}>place order</button>
-      </div>
     </StyledYourOrder>
   );
 };
 
 const StyledYourOrder = styled.div`
-  width: 100%;
-  max-width: 420px;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 40px;
   h2 {
     color: #fdbc2c;
     font-size: 2.3rem;
