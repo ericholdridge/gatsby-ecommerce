@@ -33,7 +33,7 @@ const StyledHero = styled.section`
     bottom: 0;
     left: 0;
     background: #000;
-    opacity: 0.5;
+    opacity: 0.6;
     z-index: 10;
   }
   > .container {
@@ -65,6 +65,18 @@ const StyledHero = styled.section`
       font-weight: bold;
       font-size: 1.1rem;
       text-decoration: none;
+    }
+  }
+  @media (max-width: 666px) {
+    > .container {
+      text-align: left;
+      h1 {
+        line-height: 1;
+      }
+      p {
+        line-height: 1.1;
+        margin: 14px 0 6px 0;
+      }
     }
   }
 `;

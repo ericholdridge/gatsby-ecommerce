@@ -79,6 +79,12 @@ const StyledYourOrder = styled.div`
       font-weight: 600;
     }
   }
+  @media (max-width: 824px) {
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
 `;
 
 export default YourOrder;

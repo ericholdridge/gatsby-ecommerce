@@ -15,19 +15,18 @@ const checkout = () => {
       <div className="background-image">
         <h1>Checkout</h1>
       </div>
-      <div className="background">
-        <Container>
-          <Elements stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements>
-        </Container>
-      </div>
+      <Container>
+        <Elements stripe={stripePromise}>
+          <CheckoutForm />
+        </Elements>
+      </Container>
     </StyledCheckoutPage>
   );
 };
 
 const StyledCheckoutPage = styled.section`
   width: 100%;
+  position: relative;
   .background-image {
     position: relative;
     background: url("${CheckoutBgImage}") no-repeat center/cover;
@@ -35,15 +34,19 @@ const StyledCheckoutPage = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(40vh - 69px);
+    min-height: calc(33vh - 69px);
     h1 {
       font-size: 4rem;
       color: whitesmoke;
     }
   }
-  .background {
-    width: 100%;
-    min-height: 60vh;
+  @media (max-width: 824px) {
+    .background-image {
+      min-height: calc(26vh - 69px);
+      h1 {
+        font-size: 3rem;
+      }
+    }
   }
 `;
 

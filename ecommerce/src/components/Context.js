@@ -34,7 +34,7 @@ export const AppProvider = ({ children }) => {
           setAddText("Added " + "✔");
           setTimeout(() => {
             setAddText("Add");
-          }, 2500);
+          }, 1200);
         }
       }
       setCartItems([

@@ -41,9 +41,9 @@ const StyledMenuPage = styled.section`
   }
   .background-image {
     width: 100%;
-    background: url("${MenuBgImage}") no-repeat center/ cover;
+    background: url("${MenuBgImage}") no-repeat center/cover;
     box-shadow: 0 1px 7px 0 rgba(1, 2, 2, 0.6);
-    min-height: calc(40vh - 69px);
+    min-height: calc(33vh - 69px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,6 +56,14 @@ const StyledMenuPage = styled.section`
     .container {
       display: flex;
       flex-wrap: wrap;
+    }
+  }
+  @media (max-width: 824px) {
+    .background-image {
+      min-height: calc(26vh - 69px);
+      h1 {
+        font-size: 3rem;
+      }
     }
   }
 `;

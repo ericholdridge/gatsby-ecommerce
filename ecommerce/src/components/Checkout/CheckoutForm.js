@@ -32,7 +32,6 @@ const CheckoutForm = () => {
       totalPrice: totalPrice,
     });
 
-
     const clientSecret = res.data["client_secret"];
 
     const result = await stripe.confirmCardPayment(clientSecret, {
@@ -190,6 +189,25 @@ const StyledCheckoutForm = styled.form`
     .message {
       color: white;
       margin: 20px 0 0 0;
+    }
+  }
+  @media (max-width: 824px) {
+    flex-direction: column;
+    .formInputs {
+      h3 {
+        font-size: 2rem;
+      }
+    }
+    .order {
+      margin: 20px 0 0 0;
+    }
+  }
+  @media (max-width: 824px) {
+    align-items: center;
+  }
+  @media (min-width: 825px) and (max-width: 1264px) {
+    .formInputs, .order {
+      width: 49%;
     }
   }
 `;

@@ -115,6 +115,7 @@ const StyledPizzaMenu = styled.div`
     }
     &:hover {
       border: 2px solid #fdbc2c;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
     }
     form {
       display: flex;
@@ -145,6 +146,15 @@ const StyledPizzaMenu = styled.div`
       }
     }
   }
+  @media (max-width: 824px) {
+    flex-direction: column;
+  }
+  @media (min-width: 1040px) and (max-width: 1233px) {
+    .individualPizza {
+      max-width: 300px;
+    }
+  }
+
 `;
 
 export default PizzaMenu;

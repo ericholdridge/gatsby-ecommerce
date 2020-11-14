@@ -4,6 +4,7 @@ import Img from "gatsby-image";
 import styled from "styled-components";
 import Button from "./Button";
 import formatMoney from "../../utils/formatMoney";
+import PatternBg from "../../images/pattern-body.jpg";
 
 const SideCart = () => {
   const { cartItems, showCart, handleRemoveItem } = useContext(AppState);
@@ -21,7 +22,10 @@ const SideCart = () => {
                 <span>{item.pizzaName}</span>
                 <span className="pizzaSize">Size: {item.size}</span>
                 <span>{formatMoney(item.price)}</span>
-                <button type="button" onClick={() => handleRemoveItem(item.itemId)}>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveItem(item.itemId)}
+                >
                   Remove item
                 </button>
               </div>
@@ -37,6 +41,10 @@ const SideCart = () => {
 const StyledCart = styled.div`
   transition: all 400ms ease-in-out;
   min-height: 100vh;
+  background: url("${PatternBg}") no-repeat center/cover;
+  position: absolute;
+  top: 0;
+  z-index:1000;
   &.hideCart {
     width: 100%;
     max-width: 400px;
@@ -87,6 +95,29 @@ const StyledCart = styled.div`
           width: 100%;
           max-width: 190px;
         }
+        .wrap {
+          span {
+            display: block;
+            color: #fdbc2c;
+            font-size: 1.2rem;
+            font-weight: 600;
+            width: 100%;
+            max-width: 190px;
+          }
+          .pizzaSize {
+            font-size: 0.9rem;
+            color: whitesmoke;
+          }
+          button {
+            background: none;
+            border: none;
+            color: #d94f2b;
+            cursor: pointer;
+            &:active {
+              outline: none;
+            }
+          }
+        }
       }
     }
   }
@@ -98,7 +129,7 @@ const StyledCart = styled.div`
     right: 0;
     bottom: 0;
     opacity: 1;
-    background: #222222;
+    background: url("${PatternBg}");
     z-index: 10;
     display: flex;
     flex-direction: column;
@@ -116,15 +147,27 @@ const StyledCart = styled.div`
       max-width: 320px;
       max-height: 70vh;
       overflow-y: scroll;
-      border-top: 1px solid #010202;
-      box-shadow: 0 -1px 0 0 #383838;
+      &::-webkit-scrollbar {
+        width: .7rem;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #fdbc2c;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #d94f2b;
+        border: 1px solid #d94f2b;
+        border-radius: 4px;
+      }
       .item {
         display: flex;
         width: 100%;
         max-width: 600px;
         padding: 20px 0;
-        border-bottom: 1px solid #010202;
-        box-shadow: 0 1px 0 0 #383838;
+        border-top: 1px solid #010202;
+        box-shadow: 0 -1px 0 0 #383838;
         .gatsby-image-wrapper {
           height: 130px !important;
           width: 130px !important;

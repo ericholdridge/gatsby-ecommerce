@@ -13,7 +13,6 @@ const Navbar = () => {
         <div className="logo">ReactPizza</div>
         <div className="items">
           <Link to="/">Home</Link>
-          <Link to="/">About</Link>
           <Link to="/menu">Menu</Link>
           <div>
             <i
@@ -32,7 +31,7 @@ const Navbar = () => {
 const StyledNav = styled.nav`
   width: 100%;
   padding: 20px 0;
-  background: #151515;
+  background: transparent;
   .container {
     display: flex;
     justify-content: space-between;
