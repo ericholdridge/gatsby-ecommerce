@@ -29,7 +29,6 @@ const SideCart = () => {
           ))}
         </div>
       ) : null}
-      <Button className="viewCart" btnText="VIEW SHOPPING CART" />
       <Button toPage="/checkout" className="checkout" btnText="CHECKOUT" />
     </StyledCart>
   );

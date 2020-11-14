@@ -2,7 +2,6 @@ import React, { useState, createContext } from "react";
 import GlobalStyles from "../GlobalStyles/GlobalStyles";
 import { Helmet } from "react-helmet";
 import { v4 as uuidv4 } from "uuid";
-
 // Components
 import Navbar from "../components/Navbar/Navbar";
 export const AppState = createContext();
@@ -22,11 +21,22 @@ export const AppProvider = ({ children }) => {
   const [price, setPrice] = useState();
   const [cardIndex, setCardIndex] = useState();
   const totalPrice = cartItems.reduce((acc, curr) => acc + curr.price, 0);
+  const [addText, setAddText] = useState("Add");
+  const [showCheckoutSuccess, setShowCheckoutSuccess] = useState();
 
   // Add the pizza item into an array of objects. We use this in the cart/checkout page to display the users items
-  const addToCart = (pizza, price) => {
+  const addToCart = (e, pizza, price, index) => {
     // If the pizza size isn't undefined, add the item to the cart
     if (selectPizzaSize !== undefined) {
+      if (e.target.className.includes(index)) {
+        setCardIndex(index);
+        if (cardIndex == index) {
+          setAddText("Added " + "✔");
+          setTimeout(() => {
+            setAddText("Add");
+          }, 2500);
+        }
+      }
       setCartItems([
         ...cartItems,
         {
@@ -39,9 +49,8 @@ export const AppProvider = ({ children }) => {
         },
       ]);
       // Once an item is added to the cart, set these state variables to undefined so the user can't add an item with no price or size.
-      setPrice(undefined);
+      // setPrice(undefined);
       setSelectPizzaSize(undefined);
-      setCardIndex(undefined);
     }
   };
 
@@ -112,6 +121,11 @@ export const AppProvider = ({ children }) => {
         inputValues,
         handleInputValues,
         handleRemoveItem,
+        setAddText,
+        addText,
+        showCheckoutSuccess,
+        setShowCheckoutSuccess,
+        setInputValues
       }}
     >
       <GlobalStyles />

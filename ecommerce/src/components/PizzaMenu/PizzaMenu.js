@@ -6,7 +6,13 @@ import { AppState } from "../Context";
 import formatMoney from "../../utils/formatMoney";
 
 const PizzaMenu = ({ addToCart }) => {
-  const { handlePizzaState, price, cardIndex } = useContext(AppState);
+  const {
+    handlePizzaState,
+    price,
+    cardIndex,
+    setAddText,
+    addText,
+  } = useContext(AppState);
 
   return (
     <StaticQuery
@@ -56,13 +62,14 @@ const PizzaMenu = ({ addToCart }) => {
                   <option value="Large">Large</option>
                 </select>
                 <button
+                  className={index}
                   type="button"
-                  onClick={() => addToCart(pizza, price, index)}
+                  onClick={(e) => addToCart(e, pizza, price, index)}
                 >
-                  Add
+                  {cardIndex === index ? addText : "Add"}
+                  
                 </button>
               </form>
-              
             </div>
           ))}
         </StyledPizzaMenu>

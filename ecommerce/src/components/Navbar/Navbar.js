@@ -6,7 +6,7 @@ import { AppState } from "../Context";
 import Container from "../ReusableComponents/Container";
 
 const Navbar = () => {
-  const { showCart, setShowCart } = useContext(AppState);
+  const { showCart, setShowCart, cartItems } = useContext(AppState);
   return (
     <StyledNav>
       <Container>
@@ -15,7 +15,14 @@ const Navbar = () => {
           <Link to="/">Home</Link>
           <Link to="/">About</Link>
           <Link to="/menu">Menu</Link>
-          <i onClick={() => setShowCart(!showCart)}className="fas fa-shopping-cart fa-xl"></i>
+          <div>
+            <i
+              onClick={() => setShowCart(!showCart)}
+              className="fas fa-shopping-cart fa-xl"
+            >
+              {cartItems.length > 0 ? <span>{cartItems.length}</span> : null}
+            </i>
+          </div>
         </div>
       </Container>
     </StyledNav>
@@ -36,6 +43,8 @@ const StyledNav = styled.nav`
       font-size: 1.2rem;
     }
     .items {
+      display: flex;
+      align-items: center;
       a {
         text-decoration: none;
         color: whitesmoke;
@@ -45,6 +54,16 @@ const StyledNav = styled.nav`
         color: #fdbc2c;
         margin: 0 0 0 10px;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        span {
+          display: block;
+          font-weight: 600;
+          font-size: 1rem;
+          color: #d94f2b;
+          font-family: 'Poppins',sans-serif;
+          padding: 4px 0 0 4px;
+        }
       }
     }
   }

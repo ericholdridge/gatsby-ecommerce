@@ -5,11 +5,18 @@ import axios from "axios";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { AppState } from "../Context";
 import YourOrder from "./YourOrder";
+import formatMoney from "../../utils/formatMoney";
 
 const CheckoutForm = () => {
-  const { inputValues, totalPrice, email, handleInputValues } = useContext(
-    AppState
-  );
+  const {
+    inputValues,
+    setInputValues,
+    totalPrice,
+    email,
+    handleInputValues,
+    showCheckoutSuccess,
+    setShowCheckoutSuccess,
+  } = useContext(AppState);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -24,6 +31,7 @@ const CheckoutForm = () => {
       email: email,
       totalPrice: totalPrice,
     });
+
 
     const clientSecret = res.data["client_secret"];
 
@@ -44,12 +52,17 @@ const CheckoutForm = () => {
     });
 
     if (result.error) {
-      // TODO: Show error message if payment didn't go through
+      setShowCheckoutSuccess(
+        "Please review the information entered and try again."
+      );
+
       console.log(result.error.message);
     } else {
-      // The payment has been processed!
       if (result.paymentIntent.status === "succeeded") {
-        // TODO: Show success message to the user that the payment succeeded
+        setShowCheckoutSuccess(
+          "Order placed, you will recieve an email shortly with your receipt!"
+        );
+        setInputValues("");
       }
     }
   };
@@ -135,6 +148,7 @@ const CheckoutForm = () => {
       <div className="order">
         <YourOrder />
         <button>Checkout</button>
+        <span className="message">{showCheckoutSuccess}</span>
       </div>
     </StyledCheckoutForm>
   );
@@ -158,6 +172,25 @@ const StyledCheckoutForm = styled.form`
     max-width: 450px;
     background: rgba(0, 0, 0, 0.3);
     padding: 40px;
+    display: flex;
+    flex-direction: column;
+    button {
+      background: #fdbc2c;
+      border: none;
+      margin: 10px 0 0 0;
+      padding: 14px 0;
+      color: #000;
+      font-weight: 600;
+      font-size: 1.2rem;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+    .message {
+      color: white;
+      margin: 20px 0 0 0;
+    }
   }
 `;
 
