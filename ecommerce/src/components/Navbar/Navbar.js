@@ -31,7 +31,7 @@ const Navbar = () => {
 const StyledNav = styled.nav`
   width: 100%;
   padding: 20px 0;
-  background: transparent;
+  background: #000;
   .container {
     display: flex;
     justify-content: space-between;

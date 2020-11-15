@@ -26,6 +26,7 @@ const StyledHero = styled.section`
   text-align: center;
   background: url("${HeroBg}") no-repeat center/cover;
   position: relative;
+  box-shadow: 0 1px 7px 0 rgba(1, 2, 2, 0.6);
   .overlay {
     position: absolute;
     top: 0;
