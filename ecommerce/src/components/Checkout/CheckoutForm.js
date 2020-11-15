@@ -5,7 +5,6 @@ import axios from "axios";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { AppState } from "../Context";
 import YourOrder from "./YourOrder";
-import formatMoney from "../../utils/formatMoney";
 
 const CheckoutForm = () => {
   const {

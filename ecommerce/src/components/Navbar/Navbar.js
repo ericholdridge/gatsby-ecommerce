@@ -16,7 +16,7 @@ const Navbar = () => {
           <Link to="/menu">Menu</Link>
           <div>
             <i
-              // onClick={() => setShowCart(!showCart)}
+              onClick={() => setShowCart(!showCart)}
               className="fas fa-shopping-cart fa-xl"
             >
               {cartItems.length > 0 ? <span>{cartItems.length}</span> : null}

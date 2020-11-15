@@ -4,7 +4,30 @@ import { Helmet } from "react-helmet";
 import { v4 as uuidv4 } from "uuid";
 // Components
 import Navbar from "../components/Navbar/Navbar";
-export const AppState = createContext();
+
+const defaultState = {
+  showCart: false,
+  cartItems: [],
+  selectPizzaSize: "",
+  price: "",
+  cardIndex: "",
+  addText: "Add",
+  showCheckoutSuccess: "",
+  addToCart: () => {},
+  handlePizzaState: () => {},
+  handleRemoveItem: () => {},
+  handleInputValues: () => {},
+  inputValues: {
+    name: "",
+    email: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+  },
+};
+
+export const AppState = createContext(defaultState);
 
 export const AppProvider = ({ children }) => {
   const [inputValues, setInputValues] = useState({
@@ -106,7 +129,7 @@ export const AppProvider = ({ children }) => {
       value={{
         cartItems,
         setCartItems,
-        addToCart,
+        addToCart: addToCart,
         showCart,
         setShowCart,
         selectPizzaSize,
@@ -114,18 +137,18 @@ export const AppProvider = ({ children }) => {
         totalPrice,
         setPrice,
         price,
-        handlePizzaState,
+        handlePizzaState: handlePizzaState,
         cardIndex,
         inputValues,
         setInputValues,
         inputValues,
-        handleInputValues,
-        handleRemoveItem,
+        handleInputValues: handleInputValues,
+        handleRemoveItem: handleRemoveItem,
         setAddText,
         addText,
         showCheckoutSuccess,
         setShowCheckoutSuccess,
-        setInputValues
+        setInputValues,
       }}
     >
       <GlobalStyles />
