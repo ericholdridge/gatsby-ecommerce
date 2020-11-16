@@ -7,11 +7,26 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 // Images
 import CheckoutBgImage from "../images/menu-bg.jpg";
+import Navbar from "../components/Navbar/Navbar";
+import { Helmet } from "react-helmet";
+import GlobalStyles from "../GlobalStyles/GlobalStyles";
 const stripePromise = loadStripe(process.env.GATSBY_PUBLISHABLE_KEY);
 
 const checkout = () => {
   return (
     <StyledCheckoutPage className="checkout">
+      <GlobalStyles />
+      <Helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200;300;500&family=Poppins:wght@100;300;400;500&display=swap"
+          rel="stylesheet"
+        />
+        <script
+          src="https://kit.fontawesome.com/9808de19ba.js"
+          crossorigin="anonymous"
+        ></script>
+      </Helmet>
+      <Navbar />
       <div className="background-image">
         <h1>Checkout</h1>
       </div>

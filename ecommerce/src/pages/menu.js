@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { AppState } from "../components/Context";
+import Navbar from "../components/Navbar/Navbar";
+import { Helmet } from "react-helmet";
+import GlobalStyles from "../GlobalStyles/GlobalStyles";
 // Images
 import MenuBgImage from "../images/menu-bg.jpg";
 // Components
@@ -12,6 +15,18 @@ const MenuPage = () => {
   const { setCartItems, addToCart, showCart } = useContext(AppState);
   return (
     <StyledMenuPage className="menu">
+      <GlobalStyles />
+      <Helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200;300;500&family=Poppins:wght@100;300;400;500&display=swap"
+          rel="stylesheet"
+        />
+        <script
+          src="https://kit.fontawesome.com/9808de19ba.js"
+          crossorigin="anonymous"
+        ></script>
+      </Helmet>
+      <Navbar />
       {showCart ? <div className="overlay"></div> : null}
       <SideCart />
       <div className="background-image">
