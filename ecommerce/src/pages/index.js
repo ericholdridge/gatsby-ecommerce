@@ -2,14 +2,10 @@ import React from "react";
 import About from "../components/Hero/About/About";
 import HeroBackgroundSection from "../components/Hero/HeroBackgroundSection";
 import PizzaSlider from "../components/Hero/PizzaSlider/PizzaSlider";
-import Navbar from "../components/Navbar/Navbar";
-import { Helmet } from "react-helmet";
-import GlobalStyles from "../GlobalStyles/GlobalStyles";
 
 const IndexPage = () => {
   return (
     <>
-      <Navbar />
       <HeroBackgroundSection />
       <About
         aboutHeading="We are pizza makers, and our mission is to make cool pizza which feeds all your senses."

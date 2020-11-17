@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { AppState } from "../components/Context";
-import Navbar from "../components/Navbar/Navbar";
-import { Helmet } from "react-helmet";
-import GlobalStyles from "../GlobalStyles/GlobalStyles";
 // Images
 import MenuBgImage from "../images/menu-bg.jpg";
 // Components
@@ -15,7 +12,6 @@ const MenuPage = () => {
   const { setCartItems, addToCart, showCart } = useContext(AppState);
   return (
     <StyledMenuPage className="menu">
-      <Navbar />
       {showCart ? <div className="overlay"></div> : null}
       <SideCart />
       <div className="background-image">

@@ -1,19 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import CheckoutForm from "../components/Checkout/CheckoutForm";
-import YourOrder from "../components/Checkout/YourOrder";
 import Container from "../components/ReusableComponents/Container";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 // Images
 import CheckoutBgImage from "../images/menu-bg.jpg";
-import Navbar from "../components/Navbar/Navbar";
 const stripePromise = loadStripe(process.env.GATSBY_PUBLISHABLE_KEY);
 
 const checkout = () => {
   return (
     <StyledCheckoutPage className="checkout">
-      <Navbar />
       <div className="background-image">
         <h1>Checkout</h1>
       </div>
